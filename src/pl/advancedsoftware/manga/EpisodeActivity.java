@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Window;
 
 public class EpisodeActivity extends FragmentActivity {
@@ -24,10 +23,6 @@ public class EpisodeActivity extends FragmentActivity {
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		try {
 			super.onCreate(savedInstancebBundle);
-			SharedPreferences settings = getSharedPreferences("MangaReaderPrefs", 0);
-			SharedPreferences.Editor editor = settings.edit();
-			//editor.putInt("page", -1);
-			//editor.commit();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

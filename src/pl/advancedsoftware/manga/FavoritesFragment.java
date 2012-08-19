@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +48,7 @@ public class FavoritesFragment extends ListFragment {
     	
     	textView = (TextView) view.findViewById(android.R.id.empty);
     	searchView = (SearchView) view.findViewById(R.id.searchView);
+    	searchView.setVisibility(View.GONE);
     	listView = (ListView) view.findViewById(android.R.id.list);
     	listView.setAdapter(arrayAdapter = new ArrayAdapter<Manga>(c,
         	R.layout.listview_item,

@@ -1,12 +1,6 @@
 package pl.advancedsoftware.manga;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
-
-import android.content.SharedPreferences;
-
 
 public class Manga implements Serializable {
 	/**

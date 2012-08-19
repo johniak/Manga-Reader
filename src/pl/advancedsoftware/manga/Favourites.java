@@ -2,10 +2,8 @@ package pl.advancedsoftware.manga;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.text.style.UpdateAppearance;
 import android.util.Log;
 
 public class Favourites {
