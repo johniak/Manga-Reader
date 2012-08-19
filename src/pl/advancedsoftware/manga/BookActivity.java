@@ -39,13 +39,13 @@ public class BookActivity extends ListActivity {
 		episodesListView = (ListView) findViewById(android.R.id.list);
 		episodes = new ArrayList<Manga>();
 		episodesArrayAdapter = new ArrayAdapter<Manga>(this,
-				R.layout.listview_item, episodes){
+				R.layout.listview_item, episodes) {
 			@Override
-			public View getView(int position, View convertView,
-					ViewGroup parent) {
+			public View getView(int position, View convertView, ViewGroup parent) {
 				View v = super.getView(position, convertView, parent);
 				TextView t = (TextView) v.findViewById(android.R.id.text1);
-				t.setTextColor(episodes.get(position).isRead() ? Color.parseColor("#AA0000") : Color.BLACK);
+				t.setTextColor(episodes.get(position).isRead() ? Color
+						.parseColor("#AA0000") : Color.BLACK);
 				return v;
 			}
 		};
@@ -67,16 +67,15 @@ public class BookActivity extends ListActivity {
 			protected void onPostExecute(Elements result) {
 				SharedPreferences settings = getSharedPreferences(
 						"MangaReaderPrefs", 0);
-				int book = settings.getInt("book" + currentManga.getUrl(), 0);
+				int book = settings.getInt("book" + currentManga.getUrl(), -1);
 				for (Element element : result) {
-					Log.v("JRe", element.html());
 					if (element.html().compareTo("Online") != 0)
 						episodes.add(new Manga(element.html(), element
 								.attr("href")));
 				}
-				episodes.get(book).setRead(true);
+				if (book >= 0)
+					episodes.get(book).setRead(true);
 				episodesArrayAdapter.notifyDataSetChanged();
-				Log.v("JRe", "Parsed!");
 				This.setProgressBarIndeterminateVisibility(false);
 
 				episodesListView.setSelection(book);
@@ -89,9 +88,16 @@ public class BookActivity extends ListActivity {
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
+
 		Manga selectedManga = (Manga) getListView().getItemAtPosition(position);
 		SharedPreferences settings = getSharedPreferences("MangaReaderPrefs", 0);
 		SharedPreferences.Editor editor = settings.edit();
+
+		int book = settings.getInt("book" + currentManga.getUrl(), -1);
+		if (book >= 0)
+			episodes.get(book).setRead(false);
+		episodes.get(position).setRead(true);
+		episodesArrayAdapter.notifyDataSetChanged();
 		editor.putInt("book" + currentManga.getUrl(), position);
 		editor.commit();
 		Intent intent = new Intent(this, EpisodeActivity.class);
