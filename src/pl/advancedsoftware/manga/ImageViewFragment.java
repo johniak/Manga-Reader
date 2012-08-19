@@ -32,12 +32,14 @@ public class ImageViewFragment extends Fragment {
 	@Override
     public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		parent.setProgressBarIndeterminateVisibility(true);
 		DownloadImageAsyncTask getImageAsyncTask= new DownloadImageAsyncTask(){
     		@Override
     		protected void onPostExecute(Bitmap[] result) {
     			imageView.setImageBitmap(result[0]);
     			result=null;
     			System.gc();
+    			parent.setProgressBarIndeterminateVisibility(false);
     			super.onPostExecute(result);
     		}
     	};

@@ -1,10 +1,33 @@
 package pl.advancedsoftware.manga;
 
+import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Manga {
+import android.content.SharedPreferences;
+
+
+public class Manga implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String title;
 	private String url;
-	
+	private boolean read=false;
+	public boolean isRead() {
+		return read;
+	}
+
+	public void setRead(boolean read) {
+		this.read = read;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	public Manga(String title,String url){
 		this.title=title;
 		this.url=url;
@@ -29,5 +52,13 @@ public class Manga {
 	public String toString() {
 		return this.title;
 	}
+	@Override
+	public boolean equals(Object o) {
+		Manga manga= (Manga)o;
+		if(manga.title.compareTo(title)==0&&manga.url.compareTo(url)==0)
+			return true;
+		return false;
+	}
+
 	
 }

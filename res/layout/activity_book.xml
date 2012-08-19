@@ -13,6 +13,10 @@
         android:paddingBottom="4dp"
         android:paddingTop="4dp"
         android:textColor="#fff" />
+    	<TextView
+	    android:id="@id/android:empty"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent" />
 
     <ListView
         xmlns:android="http://schemas.android.com/apk/res/android"

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
@@ -30,11 +31,16 @@ public class FavoritesFragment extends ListFragment {
     }
 	@Override
     public void onActivityCreated(Bundle savedInstanceState) {
-    	
-    	mangaList.add(new Manga("Cos 2", "Cos innego 2"));
-    	
+
     	super.onActivityCreated(savedInstanceState);
     }
+	@Override
+	public void onResume() {
+    	mangaList.clear();
+    	mangaList.addAll(Favourites.getFavoritesList());
+    	arrayAdapter.notifyDataSetChanged();
+		super.onResume();
+	}
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -51,5 +57,14 @@ public class FavoritesFragment extends ListFragment {
 
         return view;
     }
+	@Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+		Manga selectedManga=(Manga)getListView().getItemAtPosition(position);
+    	
+    	Intent intent = new Intent(parent, BookActivity.class);
+    	intent.putExtra("url", selectedManga.getUrl());
+    	intent.putExtra("title", selectedManga.getTitle());
+    	startActivity(intent);
+	}
 	
 }

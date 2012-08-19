@@ -15,7 +15,7 @@ public class MainActivity extends FragmentActivity {
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_main);
         This=this;
-  
+        Favourites.context= getApplicationContext();
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         viewPager= (ViewPager)findViewById(R.id.pager);
         viewPager.setAdapter(sectionsPagerAdapter); 

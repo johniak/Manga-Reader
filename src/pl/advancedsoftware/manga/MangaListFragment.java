@@ -40,7 +40,7 @@ public class MangaListFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
 		setupSearchView();
 		getMangList();
-    	mangaList.add(new Manga("Donwnloading data...", "Cos innego"));
+		
     	
     	super.onActivityCreated(savedInstanceState);
     }
@@ -82,15 +82,15 @@ public class MangaListFragment extends ListFragment {
     	Context c = getActivity().getApplicationContext();
     	View view = inflater.inflate(R.layout.list_view, container, false);
     	
-    //	textView = (TextView) view.findViewById(android.R.id.empty);
     	searchView = (SearchView) view.findViewById(R.id.searchView);
     	listView = (ListView) view.findViewById(android.R.id.list);
+    	textView = (TextView) view.findViewById(android.R.id.empty);
     	listView.setOnItemClickListener(onMangaItemClickListener);
     	listView.setAdapter(arrayAdapter = new ArrayAdapter<Manga>(c,
         	R.layout.listview_item,
         	mangaList));
     	listView.setTextFilterEnabled(true);
-
+    	textView.setText("Donwnloading data..."); 
         return view;
     }
     private void setupSearchView() {
