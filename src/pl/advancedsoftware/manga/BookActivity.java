@@ -8,6 +8,7 @@ import org.jsoup.select.Elements;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -52,6 +53,9 @@ public class BookActivity extends ListActivity {
 					episodesArrayAdapter.notifyDataSetChanged();
 					Log.v("JRe", "Parsed!");
 					This.setProgressBarIndeterminateVisibility(false);
+					SharedPreferences settings = getSharedPreferences("MangaReaderPrefs", 0);
+					int book=settings.getInt("book"+currentManga.getUrl(), 0);
+					episodesListView.setSelection(book);
 					super.onPostExecute(result);
 				}
 			};
@@ -60,7 +64,10 @@ public class BookActivity extends ListActivity {
 		@Override
 		protected void onListItemClick(ListView l, View v, int position, long id) {
 			Manga selectedManga=(Manga)getListView().getItemAtPosition(position);
-	    	
+			SharedPreferences settings = getSharedPreferences("MangaReaderPrefs", 0);
+			SharedPreferences.Editor editor = settings.edit();
+			editor.putInt("book"+currentManga.getUrl(), position);
+			editor.commit();
 	    	Intent intent = new Intent(this, EpisodeActivity.class);
 	    	intent.putExtra("url", selectedManga.getUrl());
 	    	intent.putExtra("title", selectedManga.getTitle());

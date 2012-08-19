@@ -1,12 +1,9 @@
 package pl.advancedsoftware.manga;
 
 import java.io.BufferedInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-
-import android.R.integer;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -25,19 +22,20 @@ public class DownloadImageAsyncTask extends AsyncTask<String, Integer, Bitmap[]>
 	private Bitmap getImageBitmap(String url) {
         Bitmap bm = null;
         try {
-        	Log.v("JRe","Dadas:"+url);
             URL aURL = new URL(url);
             URLConnection conn = aURL.openConnection();
             conn.connect();
             InputStream is = conn.getInputStream();
             BufferedInputStream bis = new BufferedInputStream(is);
             BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inSampleSize=1;
-          
-            bm = BitmapFactory.decodeStream(bis,null,options);
             
+            System.gc();
+            bm = BitmapFactory.decodeStream(bis,null,options);
+            conn=null;
             bis.close();
             is.close();
+            bis=null;
+            is=null;
        } catch (Exception e) {
            Log.w("JRe",  e.toString());
        }

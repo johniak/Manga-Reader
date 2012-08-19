@@ -9,7 +9,6 @@ import org.jsoup.select.*;
 import android.R.integer;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 public class JSOUPAsyncParser extends AsyncTask<String, integer, Elements> {
 	int counter;

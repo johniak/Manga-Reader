@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -22,12 +23,15 @@ public class EpisodeActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstancebBundle) {
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		try {
-			
-
 			super.onCreate(savedInstancebBundle);
+			SharedPreferences settings = getSharedPreferences("MangaReaderPrefs", 0);
+			SharedPreferences.Editor editor = settings.edit();
+			//editor.putInt("page", -1);
+			//editor.commit();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+
 		Bundle extras = getIntent().getExtras();
 		currentEpisode = new Manga((String) extras.get("title"),
 				(String) extras.get("url"));
@@ -43,7 +47,6 @@ public class EpisodeActivity extends FragmentActivity {
 				currentEpisode.getUrl().lastIndexOf("/"),
 				currentEpisode.getUrl().indexOf(","));
 		imageDirURL = "http://img.manga-lib.pl" + title + "/" + episodeNr + "/";
-		Log.v("JRe", imageDirURL);
 		getImagesURLs();
 	}
 
@@ -52,10 +55,12 @@ public class EpisodeActivity extends FragmentActivity {
 			@Override
 			protected void onPostExecute(Elements result) {
 				for (Element e : result) {
-					String a=e.attr("href");
-					if(a.compareTo("000_origin_info.jpg")!=0&&a.compareTo("../")!=0&&a.compareTo("origin_info.txt")!=0)
-						imageURLs.add(imageDirURL+e.attr("href"));
-					Log.v("JRf", e.attr("href"));
+					String a = e.attr("href");
+					if (a.compareTo("000_origin_info.jpg") != 0
+							&& a.compareTo("../") != 0
+							&& a.compareTo("origin_info.txt") != 0)
+						imageURLs.add(0,(imageDirURL + e.attr("href")));
+
 				}
 				initialize();
 				super.onPostExecute(result);
@@ -64,13 +69,32 @@ public class EpisodeActivity extends FragmentActivity {
 		jsoupAsyncParser.execute(imageDirURL, "a");
 	}
 
+	@Override
+	protected void onPause() {
+		SharedPreferences settings = getSharedPreferences("MangaReaderPrefs", 0);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putInt("page"+imageDirURL, viewPager.getCurrentItem());
+		editor.commit();
+		super.onPause();
+	}
+
+	@Override
+	protected void onResume() {
+		
+		super.onResume();
+	}
+
 	protected void initialize() {
 		setContentView(R.layout.episode_activity);
 		This = this;
 
 		ImagesSestionPagerAdapter sectionsPagerAdapter = new ImagesSestionPagerAdapter(
-				getSupportFragmentManager(),imageURLs);
+				getSupportFragmentManager(), imageURLs);
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		viewPager.setAdapter(sectionsPagerAdapter);
+		SharedPreferences settings = getSharedPreferences("MangaReaderPrefs", 0);
+		int page=settings.getInt("page"+imageDirURL, imageURLs.size()-1);
+		  viewPager.setCurrentItem(page);
+
 	}
 }

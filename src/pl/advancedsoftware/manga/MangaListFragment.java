@@ -44,6 +44,12 @@ public class MangaListFragment extends ListFragment {
     	
     	super.onActivityCreated(savedInstanceState);
     }
+	@Override
+	public void onResume() {
+		searchView.setQuery("", true);
+		getMangList();
+		super.onResume();
+	}
 	protected void getMangList() {
 		searchView.setVisibility(View.GONE);
 		parent.setProgressBarIndeterminateVisibility(true);
