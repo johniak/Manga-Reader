@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import pl.advancedsoftware.manga.R;
+
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;

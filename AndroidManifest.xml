@@ -4,8 +4,8 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
-        android:targetSdkVersion="11" />
+        android:minSdkVersion="8"
+        android:targetSdkVersion="15" /> 
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -23,10 +23,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BookActivity"
+            android:name="pl.advancedsoftware.manga.BookActivity" 
             android:label="Books" />
         <activity
-            android:name=".EpisodeActivity"
+            android:name="pl.advancedsoftware.manga.EpisodeActivity"
             android:label="Epsiode" />
     </application>
 

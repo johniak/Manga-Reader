@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 public class ImagesSestionPagerAdapter extends FragmentPagerAdapter {
 
-	ArrayList<String> URLs;
+	ArrayList<String> URLs; 
 
 	public ImagesSestionPagerAdapter(FragmentManager fragmentManager,
 			ArrayList<String> URLs) {
@@ -32,7 +32,7 @@ public class ImagesSestionPagerAdapter extends FragmentPagerAdapter {
 		return URLs.size();
 	}
 
-	@Override
+	@Override 
 	public CharSequence getPageTitle(int position) {
 
 		return URLs.get(position);

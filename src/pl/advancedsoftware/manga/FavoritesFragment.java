@@ -2,6 +2,8 @@ package pl.advancedsoftware.manga;
 
 import java.util.ArrayList;
 
+import pl.advancedsoftware.manga.R;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +22,7 @@ public class FavoritesFragment extends ListFragment {
 	ListView listView;
 	ArrayAdapter<Manga> arrayAdapter;
 	TextView textView; 
-	SearchView searchView;
+	//SearchView searchView;
 	ArrayList<Manga> mangaList= new ArrayList<Manga>();
 	
 	@Override
@@ -47,8 +49,8 @@ public class FavoritesFragment extends ListFragment {
     	View view = inflater.inflate(R.layout.list_view, container, false);
     	
     	textView = (TextView) view.findViewById(android.R.id.empty);
-    	searchView = (SearchView) view.findViewById(R.id.searchView);
-    	searchView.setVisibility(View.GONE);
+    	//searchView = (SearchView) view.findViewById(R.id.searchView);
+    	//searchView.setVisibility(View.GONE);
     	listView = (ListView) view.findViewById(android.R.id.list);
     	listView.setAdapter(arrayAdapter = new ArrayAdapter<Manga>(c,
         	R.layout.listview_item,

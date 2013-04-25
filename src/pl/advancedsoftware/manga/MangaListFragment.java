@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import pl.advancedsoftware.manga.R;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
